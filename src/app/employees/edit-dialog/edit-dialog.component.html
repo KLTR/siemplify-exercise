@@ -50,7 +50,7 @@
   </form>
 </div>
 <div mat-dialog-actions>
-  <button mat-button (click)="onNoClick()">No Thanks</button>
-  <button mat-button [disabled]="!formGroup.valid" (click)="onSubmit(formGroup.value)" cdkFocusInitial>Ok</button>
+  <button mat-button (click)="onNoClick()">Cancel</button>
+  <button mat-button [disabled]="!formGroup.valid" color="accent" (click)="onSubmit(formGroup.value)" cdkFocusInitial>Save</button>
 </div>
 
