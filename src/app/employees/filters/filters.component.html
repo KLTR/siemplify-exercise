@@ -1,0 +1,20 @@
+<div class="filters-container">
+  <mat-form-field>
+    <input matInput (keyup)="applyFilter($event.target.value)" placeholder="Search name">
+</mat-form-field>
+<mat-form-field>
+    <mat-label>Cities</mat-label>
+    <mat-select  #citySelect [(ngModel)]="selectedCity">
+      <mat-option (onSelectionChange)="updateCity($event)">All</mat-option>
+      <mat-option (onSelectionChange)="updateCity($event)" *ngFor="let city of cities" [value]="city">{{city}}</mat-option>
+    </mat-select>
+  </mat-form-field>
+  <mat-form-field>
+      <mat-label>Departments</mat-label>
+      <mat-select #departmentSelect [(ngModel)]="selectedDepartment">
+        <mat-option (onSelectionChange)="updateDepartment($event)">All</mat-option>
+        <mat-option (onSelectionChange)="updateDepartment($event)" *ngFor="let department of departments" [value]="department">{{department}}</mat-option>
+      </mat-select>
+</mat-form-field>
+
+</div>

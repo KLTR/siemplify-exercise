@@ -1,0 +1,56 @@
+<h1 mat-dialog-title>Edit {{data.lastName}}, {{data.firstName}}</h1>
+<div mat-dialog-content>
+  <!-- <p>What's your favorite animal?</p>
+  <mat-form-field>
+    <input matInput [(ngModel)]="newEmp.city">
+  </mat-form-field> -->
+  <form [formGroup]="formGroup">
+    <mat-form-field class="form-element">
+        <input matInput placeholder="ID" formControlName="id" type="number">
+        <mat-error *ngIf="!formGroup.controls['id'].valid && formGroup.controls['id'].touched">
+          {{ getErrorEmail() }}
+        </mat-error>
+      </mat-form-field>
+      <mat-form-field class="form-element">
+          <input matInput placeholder="First Name" formControlName="firstName">
+          <mat-error *ngIf="!formGroup.controls['firstName'].valid && formGroup.controls['firstName'].touched">
+            {{ formError}}
+          </mat-error>
+      </mat-form-field>
+      <mat-form-field class="form-element">
+          <input matInput placeholder="Last Name" formControlName="lastName">
+          <mat-error *ngIf="!formGroup.controls['lastName'].valid && formGroup.controls['lastName'].touched">
+            {{ formError}}
+          </mat-error>
+      </mat-form-field>
+      <mat-form-field class="form-element">
+          <input matInput placeholder="age" formControlName="age" type="number">
+          <mat-error *ngIf="!formGroup.controls['age'].valid && formGroup.controls['age'].touched">
+            {{ formError}}
+          </mat-error>
+        </mat-form-field>
+     <mat-form-field class="form-element">
+         <input matInput placeholder="City" formControlName="city">
+         <mat-error *ngIf="!formGroup.controls['city'].valid && formGroup.controls['city'].touched">
+           {{ formError}}
+         </mat-error>
+     </mat-form-field>
+     <mat-form-field class="form-element">
+         <input matInput placeholder="Street" formControlName="street">
+         <mat-error *ngIf="!formGroup.controls['street'].valid && formGroup.controls['street'].touched">
+           {{ formError}}
+         </mat-error>
+      </mat-form-field>
+      <mat-form-field class="form-element">
+        <input matInput placeholder="Department" formControlName="department">
+        <mat-error *ngIf="!formGroup.controls['department'].valid && formGroup.controls['department'].touched">
+          {{ formError}}
+        </mat-error>
+      </mat-form-field>
+  </form>
+</div>
+<div mat-dialog-actions>
+  <button mat-button (click)="onNoClick()">No Thanks</button>
+  <button mat-button [disabled]="!formGroup.valid" (click)="onSubmit(formGroup.value)" cdkFocusInitial>Ok</button>
+</div>
+

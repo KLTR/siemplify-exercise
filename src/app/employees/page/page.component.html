@@ -1,0 +1,21 @@
+<div class='container'>
+  <app-filters
+  [cities]="cityFilterOptions$ | async"
+  [departments] = "departmentFilterOptions$ | async"
+  [selectedCity] = "selectedCity$ | async"
+  [selectedDepartment] = "selectedDepartment$ | async"
+  (updateSearchTerm)="updateSearchTerm($event)"
+  (updateDepartmentFilter)="updateDepartmentFilter($event)"
+  (updateCityFilter)="updateCityFilter($event)"
+  >
+  </app-filters>
+  <app-employees-table
+  [employees]="employees$ | async"
+  [isLoading]="isLoading$ | async"
+  (edit)="edit($event)"
+  (changePage)="getPage($event)"
+  [searchTerm$]="searchTerm$"
+  [pageSize]="pageSize"
+  >
+  </app-employees-table>
+</div>
