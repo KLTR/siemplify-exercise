@@ -1,9 +1,9 @@
 import { Injectable } from '@angular/core';
-import { ID, QueryEntity, filterNil } from '@datorama/akita';
+import { QueryEntity } from '@datorama/akita';
 import { EmployeesStore, EmployeesState } from './employees.store';
 import { Employee } from './employees.model';
-import { map, filter, tap } from 'rxjs/operators';
-import { combineLatest, Observable } from 'rxjs';
+import { map } from 'rxjs/operators';
+import { combineLatest } from 'rxjs';
 
 @Injectable({ providedIn: 'root' })
 export class EmployeesQuery extends QueryEntity<EmployeesState, Employee> {
@@ -35,27 +35,17 @@ export class EmployeesQuery extends QueryEntity<EmployeesState, Employee> {
   city$ = this.select('cityFilter');
   department$ = this.select('departmentFilter');
 
-  idsInUse = this.getValue().ids;
-
-  get page(){
-    return this.getValue().page;
-  }
-  get city(){
-    return this.getValue().cityFilter;
-  }
-  get department(){
-    return this.getValue().departmentFilter;
-  }
-  get searchTerm(){
-    return this.getValue().searchTerm;
-  }
+  get page(): number { return this.getValue().page }
+  get city(): string { return this.getValue().cityFilter }
+  get department(): string { return this.getValue().departmentFilter }
+  get searchTerm(): string { return this.getValue().searchTerm }
 
 
   constructor(protected store: EmployeesStore) {
     super(store);
   }
 
-  private getFilteredEmployees(cityFilter, departmentFilter,searchTerm: string, employees): Employee[] {
+  private getFilteredEmployees(cityFilter: string, departmentFilter: string,searchTerm: string, employees: Employee[]): Employee[] {
     if(cityFilter) {
       employees = employees.filter(e => e.city === cityFilter);
     } else {

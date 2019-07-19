@@ -1,6 +1,6 @@
 import { EmployeesStore } from './employees.store';
 import { Injectable } from '@angular/core';
-import { PaginationResponse, IDS } from '@datorama/akita';
+import { PaginationResponse, IDS, transaction} from '@datorama/akita';
 import { Employee } from './employees.model';
 import { Observable } from 'rxjs';
 import { getEmployees} from '../../../server';
@@ -12,18 +12,13 @@ export class EmployeesService {
     ){
 
   }
-  get(params): Observable<PaginationResponse<Employee>> {
-    console.log(params)
+  get(params: any): Observable<PaginationResponse<Employee>> {
     return getEmployees(params);
   }
 
 
-  updatePage(page){
+  updatePage(page: number): void{
     this.employeesStore.update({page})
-  }
-
-  set(state) {
-    this.set(state);
   }
 
   setActive(ids: IDS): void {
@@ -31,26 +26,31 @@ export class EmployeesService {
     this.employeesStore.setActive(ids);
   }
 
+  @transaction()
   resetFilters(): void {
     this.employeesStore.update({cityFilter: null})
     this.employeesStore.update({departmentFilter: null})
     this.employeesStore.update({searchTerm: ''})
   }
 
-  updateDepartmentFilter(departmentFilter){
+  @transaction()
+  updateDepartmentFilter(departmentFilter: string): void{
     this.employeesStore.update({cityFilter: null})
     this.employeesStore.update({departmentFilter})
   }
-  updateCityFilter(cityFilter){
+
+  @transaction()
+  updateCityFilter(cityFilter: string): void{
     this.employeesStore.update({departmentFilter: null})
     this.employeesStore.update({cityFilter});
   }
 
-  updateSearchTerm(searchTerm) {
+  updateSearchTerm(searchTerm: string): void {
     this.employeesStore.update({searchTerm});
   }
 
-  edit(newEmpWithOldID: any) {
+  @transaction()
+  edit(newEmpWithOldID: any): void {
     // create a new object newEmp without the oldId.
     const { oldId, ...newEmp } = newEmpWithOldID;
     this.employeesStore.update(oldId, newEmp);
@@ -64,7 +64,5 @@ export class EmployeesService {
         }
       });
     }
-    // this.employeesStore.removeActive(oldId);
-    // this.employeesStore.addActive(newEmp.id)
   }
 }

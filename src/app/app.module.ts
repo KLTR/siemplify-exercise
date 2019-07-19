@@ -14,7 +14,6 @@ import { EditDialogComponent } from './employees/edit-dialog/edit-dialog.compone
 
 import { HighlightDirective } from '@directives';
 import {AppRoutingModule, MaterialModule } from '@modules';
-import { HttpService } from '@services';
 
 
 @NgModule({
@@ -38,7 +37,6 @@ import { HttpService } from '@services';
     environment.production ? [] : AkitaNgDevtools.forRoot()
   ],
   entryComponents: [EditDialogComponent],
-  providers: [HttpService],
   bootstrap: [AppComponent]
 })
 export class AppModule { }
